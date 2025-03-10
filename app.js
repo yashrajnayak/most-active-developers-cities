@@ -95,7 +95,7 @@ function updateHeader(city) {
         }
         header.textContent = `Most Active Developers in ${cityName} on GitHub${date}`;
     } else {
-        header.textContent = `Most Active Developers on GitHub${date}`;
+        header.textContent = `Most Active Developers on GitHub in India${date}`;
     }
 }
 
@@ -132,9 +132,7 @@ function displayDevelopersByCity(developers) {
 async function initialize() {
     const developers = await fetchDevelopersData();
     const selectedCity = getUrlParameter();
-    if (selectedCity) {
-        updateHeader(selectedCity);
-    }
+    updateHeader(selectedCity);
     displayDevelopersByCity(developers);
 }
 
