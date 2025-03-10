@@ -2,8 +2,8 @@ async function fetchDevelopersData() {
     try {
         const response = await fetch('https://raw.githubusercontent.com/yashrajnayak/most-active-developers-india/main/public/data/github-data.json');
         const data = await response.json();
-        // Store the date from the JSON file
-        window.lastUpdatedDate = new Date(data.lastUpdated || data.updated_at);
+        // Store the date from the JSON file using the correct field name
+        window.lastUpdatedDate = new Date(data.date);
         // Extract the user array and map to the required format
         return data.user.map(user => ({
             ...user.profile,
