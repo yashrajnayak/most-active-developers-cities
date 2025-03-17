@@ -1,9 +1,7 @@
 async function fetchDevelopersData() {
     try {
-        const response = await fetch('https://raw.githubusercontent.com/yashrajnayak/most-active-developers-india/main/public/data/github-data.json');
+        const response = await fetch('https://raw.githubusercontent.com/yashrajnayak/most-active-developers-india/main/data/github-data.json');
         const data = await response.json();
-        // Store the date from the JSON file using the correct field name
-        window.lastUpdatedDate = new Date(data.date);
         // Extract the user array and map to the required format
         return data.user.map(user => ({
             ...user.profile,
@@ -73,18 +71,8 @@ function getUrlParameter() {
     return validCities.includes(city) ? city : null;
 }
 
-function formatDate(date) {
-    if (!date) return '';
-    const day = date.getDate();
-    const month = date.toLocaleString('en-US', { month: 'long' });
-    const year = date.getFullYear();
-    const suffix = ['th', 'st', 'nd', 'rd'][(day % 10 > 3 ? 0 : day % 10) - (day % 100 - day % 10 == 10 ? 1 : 0)] || 'th';
-    return `${day}${suffix} ${month} ${year}`;
-}
-
 function updateHeader(city) {
     const header = document.querySelector('header h1');
-    const date = window.lastUpdatedDate ? ` as of ${formatDate(window.lastUpdatedDate)}` : '';
     
     if (city) {
         let cityName = city;
@@ -93,9 +81,9 @@ function updateHeader(city) {
         } else {
             cityName = city.charAt(0).toUpperCase() + city.slice(1);
         }
-        header.textContent = `Most Active Developers in ${cityName} on GitHub${date}`;
+        header.textContent = `Most Active Developers in ${cityName} on GitHub`;
     } else {
-        header.textContent = `Most Active Developers on GitHub in India${date}`;
+        header.textContent = `Most Active Developers on GitHub in India`;
     }
 }
 
